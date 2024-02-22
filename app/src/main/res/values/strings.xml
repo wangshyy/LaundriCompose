@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">LaundriCompose</string>
+    <!-- 菜单 -->
+    <string name="home">首页</string>
+    <string name="order">订单</string>
+    <string name="customerService">客服</string>
+    <string name="mine">我的</string>
+
+    <!-- 首页 -->
+    <string name="smartBooking">智能预定</string>
+    <string name="washDryEquipment">洗烘设备</string>
+
+    <!-- 订单 -->
+    <string name="noOrderTip">暂无进行中订单\n查看历史订单可点击右上角的\n全部订单</string>
+    <string name="refreshButton">点击刷新页面信息</string>
+
+    <!-- 我的 -->
+    <string name="collectionStore">收藏门店</string>
+    <string name="coupon">优惠券</string>
+    <string name="laundriCard">小兰卡</string>
+    <string name="protocol">《兰德力自助洗服务协议》</string>
+    <string name="redemptionCode">兑换码</string>
+    <string name="getBeansForMoney">领豆抵钱</string>
+    <string name="vipCenter">会员中心</string>
+    <string name="openNotice">开启服务进度通知 ></string>
+    <string name="laundryDone">衣物洗完啦~</string>
+</resources>
