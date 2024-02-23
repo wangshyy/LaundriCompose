@@ -4,12 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -41,10 +39,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.wsy.laundri.R
-import com.wsy.laundri.ui.customerservice.CustomerServicePage
+import com.wsy.laundri.ui.customerservice.CustomerServiceScreen
 import com.wsy.laundri.ui.home.HomeScreen
-import com.wsy.laundri.ui.mine.MinePage
-import com.wsy.laundri.ui.order.OrderPage
+import com.wsy.laundri.ui.mine.MineScreen
+import com.wsy.laundri.ui.order.OrderScreen
 import com.wsy.laundri.ui.theme.*
 
 class MainActivity : ComponentActivity() {
@@ -61,7 +59,9 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 TransparentSystemBars()
                 Surface(
-                    modifier = Modifier.fillMaxSize().systemBarsPadding(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .systemBarsPadding(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     MainScreen(navController)
@@ -73,7 +73,8 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun TransparentSystemBars() {
         val systemUiController = rememberSystemUiController()
-        val useDarkIcons = !isSystemInDarkTheme()
+//        val useDarkIcons = !isSystemInDarkTheme()
+        val useDarkIcons = false
         SideEffect {
             systemUiController.setSystemBarsColor(
                 color = Primary,
@@ -90,12 +91,12 @@ class MainActivity : ComponentActivity() {
     ) {
         val pages = listOf(
             Page(title = stringResource(id = R.string.home), contentView = { HomeScreen() }),
-            Page(title = stringResource(id = R.string.order), contentView = { OrderPage() }),
+            Page(title = stringResource(id = R.string.order), contentView = { OrderScreen() }),
             Page(
                 title = stringResource(id = R.string.customerService),
-                contentView = { CustomerServicePage() }
+                contentView = { CustomerServiceScreen() }
             ),
-            Page(title = stringResource(id = R.string.mine), contentView = { MinePage() })
+            Page(title = stringResource(id = R.string.mine), contentView = { MineScreen() })
         )
 
         Scaffold(
@@ -133,6 +134,7 @@ class MainActivity : ComponentActivity() {
                         .fillMaxWidth(),
                     text = viewModel.title.value,
                     color = Color.White,
+                    fontSize = 18.sp,
                     textAlign = TextAlign.Center
                 )
             },

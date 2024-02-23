@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
  */
 
 @Composable
-fun MinePage() {
+fun MineScreen() {
     return Box(
         modifier = Modifier
             .fillMaxSize(),

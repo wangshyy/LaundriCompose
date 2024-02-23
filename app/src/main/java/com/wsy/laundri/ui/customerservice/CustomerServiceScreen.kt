@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
  */
 
 @Composable
-fun CustomerServicePage() {
+fun CustomerServiceScreen() {
     return Box(
         modifier = Modifier
             .fillMaxSize(),

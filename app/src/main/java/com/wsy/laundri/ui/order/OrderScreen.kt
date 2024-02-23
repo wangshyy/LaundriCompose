@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
  */
 
 @Composable
-fun OrderPage() {
+fun OrderScreen() {
     return Box(
         modifier = Modifier
             .fillMaxSize(),
