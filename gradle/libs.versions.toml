@@ -28,6 +28,8 @@ ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3"}
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
 material = { group = "androidx.compose.material", name = "material", version = "1.4.0"}
+activity = { group = "androidx.activity", name = "activity", version = "1.8.1"}
+accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version = "0.31.0-alpha"}
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
