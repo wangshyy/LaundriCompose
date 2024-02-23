@@ -6,9 +6,10 @@ junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 lifecycle-runtime-ktx = "2.6.1"
-activity-compose = "1.7.0"
+activity-compose = "1.7.1"
 compose-bom = "2023.03.00"
 navigation-compose = "2.5.3"
+immersionbar = "3.2.2"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -31,6 +32,4 @@ material = { group = "androidx.compose.material", name = "material", version = "
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
-
-[bundles]
 
