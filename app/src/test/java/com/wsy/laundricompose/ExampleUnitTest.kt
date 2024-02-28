@@ -1,4 +1,4 @@
-package com.wsy.laundri
+package com.wsy.laundricompose
 
 import org.junit.Test
 

@@ -30,6 +30,7 @@ navigation-compose = { group = "androidx.navigation", name = "navigation-compose
 material = { group = "androidx.compose.material", name = "material", version = "1.4.0"}
 activity = { group = "androidx.activity", name = "activity", version = "1.8.1"}
 accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version = "0.31.0-alpha"}
+runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version = "1.5.4"}
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }

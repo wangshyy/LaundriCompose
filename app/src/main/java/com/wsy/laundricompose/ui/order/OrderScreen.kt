@@ -1,4 +1,4 @@
-package com.wsy.laundri.ui.customerservice
+package com.wsy.laundricompose.ui.order
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,12 +14,12 @@ import androidx.compose.ui.Modifier
  */
 
 @Composable
-fun CustomerServiceScreen() {
+fun OrderScreen() {
     return Box(
         modifier = Modifier
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = "page 3")
+        Text(text = "page 2")
     }
 }

@@ -1,4 +1,4 @@
-package com.wsy.laundri.ui
+package com.wsy.laundricompose.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -38,12 +38,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.wsy.laundri.R
-import com.wsy.laundri.ui.customerservice.CustomerServiceScreen
-import com.wsy.laundri.ui.home.HomeScreen
-import com.wsy.laundri.ui.mine.MineScreen
-import com.wsy.laundri.ui.order.OrderScreen
-import com.wsy.laundri.ui.theme.*
+import com.wsy.laundricompose.R
+import com.wsy.laundricompose.ui.customerservice.CustomerServiceScreen
+import com.wsy.laundricompose.ui.home.HomeScreen
+import com.wsy.laundricompose.ui.home.smartbooking.SmartBookingScreen
+import com.wsy.laundricompose.ui.mine.MineScreen
+import com.wsy.laundricompose.ui.order.OrderScreen
+import com.wsy.laundricompose.ui.theme.*
 
 class MainActivity : ComponentActivity() {
 
@@ -54,7 +55,8 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            val navController = rememberNavController()
+            val bottomNavController = rememberNavController()
+            val screenNavController = rememberNavController()
             LaundriComposeTheme {
                 // A surface container using the 'background' color from the theme
                 TransparentSystemBars()
@@ -64,7 +66,10 @@ class MainActivity : ComponentActivity() {
                         .systemBarsPadding(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen(navController)
+                    NavHost(navController = screenNavController, startDestination = "Main") {
+                        composable("Main") { MainScreen(bottomNavController, screenNavController) }
+                        composable("SmartBooking") { SmartBookingScreen() }
+                    }
                 }
             }
         }
@@ -87,10 +92,13 @@ class MainActivity : ComponentActivity() {
     @Composable
     @OptIn(ExperimentalMaterial3Api::class)
     private fun MainScreen(
-        navController: NavHostController
+        bottomNavController: NavHostController,
+        screenNavController: NavHostController
     ) {
         val pages = listOf(
-            Page(title = stringResource(id = R.string.home), contentView = { HomeScreen() }),
+            Page(
+                title = stringResource(id = R.string.home),
+                contentView = { HomeScreen(screenNavController) }),
             Page(title = stringResource(id = R.string.order), contentView = { OrderScreen() }),
             Page(
                 title = stringResource(id = R.string.customerService),
@@ -102,14 +110,14 @@ class MainActivity : ComponentActivity() {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = { TopBar() },
-            bottomBar = { BottomNavigationBar(navController) },
+            bottomBar = { BottomNavigationBar(bottomNavController) },
             content = { paddingValues ->
                 Column(modifier = Modifier.fillMaxSize()) {
                     NavHost(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(paddingValues),
-                        navController = navController,
+                        navController = bottomNavController,
                         startDestination = "page1",
                     ) {
                         pages.forEachIndexed { index, page ->
@@ -189,6 +197,7 @@ class MainActivity : ComponentActivity() {
                         Icon(bottomNavItem.icon, contentDescription = bottomNavItem.label)
                     },
                     onClick = {
+                        if (selectedItem == index) return@BottomNavigationItem
                         selectedItem = index
                         viewModel.title.value = items[index].label
                         navController.navigate(bottomNavItem.route)

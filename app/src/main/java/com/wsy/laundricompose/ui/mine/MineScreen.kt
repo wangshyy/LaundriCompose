@@ -1,4 +1,4 @@
-package com.wsy.laundri.ui.order
+package com.wsy.laundricompose.ui.mine
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,12 +14,12 @@ import androidx.compose.ui.Modifier
  */
 
 @Composable
-fun OrderScreen() {
+fun MineScreen() {
     return Box(
         modifier = Modifier
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = "page 2")
+        Text(text = "page 4")
     }
 }

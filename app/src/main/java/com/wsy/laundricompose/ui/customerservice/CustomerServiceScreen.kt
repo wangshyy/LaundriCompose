@@ -1,4 +1,4 @@
-package com.wsy.laundri.ui.mine
+package com.wsy.laundricompose.ui.customerservice
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,12 +14,12 @@ import androidx.compose.ui.Modifier
  */
 
 @Composable
-fun MineScreen() {
+fun CustomerServiceScreen() {
     return Box(
         modifier = Modifier
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = "page 4")
+        Text(text = "page 3")
     }
 }

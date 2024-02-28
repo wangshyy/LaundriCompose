@@ -1,4 +1,4 @@
-package com.wsy.laundri.ui.theme
+package com.wsy.laundricompose.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

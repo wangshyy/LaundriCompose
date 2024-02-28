@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.wsy.laundri"
+    namespace = "com.wsy.laundricompose"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.wsy.laundri"
+        applicationId = "com.wsy.laundricompose"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
