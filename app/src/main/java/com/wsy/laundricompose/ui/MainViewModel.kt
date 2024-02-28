@@ -1,4 +1,4 @@
-package com.wsy.laundri.ui
+package com.wsy.laundricompose.ui
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
