@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.wsy.laundricompose"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.wsy.laundricompose"
@@ -71,4 +71,5 @@ dependencies {
     implementation(libs.material)
 //    implementation(libs.activity)
     implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.accompanist.navigation.animation)
 }
