@@ -24,7 +24,9 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.wsy.laundricompose.ui.home.smartbooking.SmartBookingScreen
 import com.wsy.laundricompose.ui.main.MainScreen
 import com.wsy.laundricompose.ui.theme.*
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalAnimationApi::class)

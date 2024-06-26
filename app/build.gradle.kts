@@ -4,6 +4,8 @@ import org.jetbrains.kotlin.konan.properties.Properties
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.org.jetbrains.kotlin.kapt)
+    alias(libs.plugins.com.google.dagger.hilt.android)
 }
 
 // 获取 local.properties 的内容
@@ -112,5 +114,6 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.accompanist.navigation.animation)
     implementation(libs.bundles.retrofit)
-    implementation(libs.bundles.hilt)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 }
