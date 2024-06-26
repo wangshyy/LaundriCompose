@@ -10,6 +10,7 @@ activity-compose = "1.9.0"
 compose-bom = "2024.05.00"
 navigation-compose = "2.7.7"
 retroit = "2.9.0"
+hilt = "2.49"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -35,6 +36,8 @@ runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedat
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retroit" }
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retroit" }
 logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version = "4.12.0" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version = "hilt" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
@@ -42,4 +45,5 @@ org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.re
 
 [bundles]
 retrofit = ["retrofit", "converter-gson", "logging-interceptor"]
+hilt = ["hilt-android", "hilt-compiler"]
 

@@ -112,4 +112,5 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.accompanist.navigation.animation)
     implementation(libs.bundles.retrofit)
+    implementation(libs.bundles.hilt)
 }
