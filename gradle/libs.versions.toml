@@ -34,11 +34,12 @@ accompanist-navigation-animation = { group = "com.google.accompanist", name = "a
 runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version = "1.5.4" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retroit" }
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retroit" }
+logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version = "4.12.0" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
 
 [bundles]
-retrofit = ["retrofit", "converter-gson"]
+retrofit = ["retrofit", "converter-gson", "logging-interceptor"]
 
