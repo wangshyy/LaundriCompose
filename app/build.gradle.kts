@@ -69,7 +69,7 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
     implementation(libs.material)
-//    implementation(libs.activity)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.accompanist.navigation.animation)
+    implementation(libs.bundles.retrofit)
 }
