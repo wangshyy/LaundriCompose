@@ -27,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.NavOptions
 import com.wsy.laundricompose.R
 import com.wsy.laundricompose.data.DeviceBean
 import com.wsy.laundricompose.ui.theme.ColorOrangeFF7906
