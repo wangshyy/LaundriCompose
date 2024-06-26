@@ -1,8 +1,14 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
 }
+
+// 获取 local.properties 的内容
+val properties = Properties()
+properties.load(project.rootProject.file("local.properties").inputStream())
 
 android {
     namespace = "com.wsy.laundricompose"
@@ -14,10 +20,20 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+    }
+
+    // 打包命令：./gradlew assemblelaundritestRelease
+    // 打包命令：./gradlew assemblelaundriproductionRelease
+    signingConfigs {
+        create("release") {
+            storeFile = file(properties.getProperty("keystroe_storeFile"))
+            storePassword = properties.getProperty("keystroe_storePassword")
+            keyAlias = properties.getProperty("keystroe_keyAlias")
+            keyPassword = properties.getProperty("keystroe_keyPassword")
         }
     }
 
@@ -28,6 +44,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
@@ -39,6 +57,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
@@ -46,6 +65,27 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+    flavorDimensions += listOf("default")
+    productFlavors {
+        // 测试环境
+        create("laundritest") {
+            dimension = "default"
+            buildConfigField("String", "BASE_URL", "\"http://api.admin.landeli.com/\"")
+            manifestPlaceholders += mapOf(
+                "app_name" to "@string/app_name_test",
+//                "app_icon" to "@mipmap/icon_app"
+            )
+        }
+        // 生产环境
+        create("laundriproduction") {
+            dimension = "default"
+            buildConfigField("String", "BASE_URL", "\"http://api.wash.ltd/\"")
+            manifestPlaceholders += mapOf(
+                "app_name" to "@string/app_name_test",
+//                "app_icon" to "@mipmap/icon_app"
+            )
         }
     }
 }
