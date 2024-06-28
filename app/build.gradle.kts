@@ -62,7 +62,7 @@ android {
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.2"
     }
     packaging {
         resources {
@@ -85,7 +85,7 @@ android {
             dimension = "default"
             buildConfigField("String", "BASE_URL", "\"http://api.wash.ltd/\"")
             manifestPlaceholders += mapOf(
-                "app_name" to "@string/app_name_test",
+                "app_name" to "@string/app_name_production",
 //                "app_icon" to "@mipmap/icon_app"
             )
         }
@@ -116,4 +116,9 @@ dependencies {
     implementation(libs.bundles.retrofit)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+    implementation(libs.hilt.navigation.compose)
+}
+
+kapt {
+    correctErrorTypes = true
 }
