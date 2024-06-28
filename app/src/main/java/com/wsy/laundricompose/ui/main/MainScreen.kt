@@ -8,7 +8,6 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.TopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -44,7 +43,6 @@ import com.wsy.laundricompose.ui.theme.Primary
  */
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 fun MainScreen(
     bottomNavController: NavHostController,
     screenNavController: NavHostController
@@ -94,7 +92,7 @@ fun MainScreen(
 
 @Composable
 private fun TopBar() {
-    val viewModel: MainViewModel = viewModel()
+    val viewModel: MainViewModel = hiltViewModel()
     TopAppBar(
         modifier = Modifier
             .fillMaxWidth(),
@@ -114,7 +112,7 @@ private fun TopBar() {
 
 @Composable
 private fun BottomNavigationBar(navController: NavHostController) {
-    val viewModel: MainViewModel = viewModel()
+    val viewModel: MainViewModel = hiltViewModel()
     var selectedItem by remember {
         mutableStateOf(0)
     }
