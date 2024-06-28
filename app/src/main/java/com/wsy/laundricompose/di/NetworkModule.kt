@@ -2,6 +2,8 @@ package com.wsy.laundricompose.di
 
 import com.wsy.laundricompose.http.ApiService
 import com.wsy.laundricompose.http.RetrofitClient
+import com.wsy.laundricompose.http.repository.LoginRepository
+import com.wsy.laundricompose.http.repository.MainRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +21,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 // 这个注解表示它是一个 Hilt 模块，用于提供依赖注入所需的对象实例
 @Module
-object DiModule {
+object NetworkModule {
     /**
      * 提供 RetrofitClient 的单例实例。
      *
@@ -42,5 +44,23 @@ object DiModule {
     @Provides
     fun provideApiService(retrofitClient: RetrofitClient): ApiService {
         return retrofitClient.service
+    }
+
+    /**
+     * 提供 ApiService 的单例实例。
+     *
+     * @param apiService 用于创建 LoginRepository 的 ApiService 实例。
+     * @return LoginRepository 实例
+     */
+    @Singleton
+    @Provides
+    fun provideLoginRepository(apiService: ApiService): LoginRepository {
+        return LoginRepository(apiService)
+    }
+
+    @Singleton
+    @Provides
+    fun provideMainRepository(apiService: ApiService): MainRepository {
+        return MainRepository(apiService)
     }
 }
