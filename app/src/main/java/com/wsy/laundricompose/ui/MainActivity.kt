@@ -15,13 +15,16 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.wsy.laundricompose.ui.component.SystemBars
 import com.wsy.laundricompose.ui.home.smartbooking.SmartBookingScreen
+import com.wsy.laundricompose.ui.login.LoginScreen
 import com.wsy.laundricompose.ui.main.MainScreen
 import com.wsy.laundricompose.ui.theme.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,7 +43,6 @@ class MainActivity : ComponentActivity() {
             val screenNavController = rememberAnimatedNavController()
             LaundriComposeTheme {
                 // A surface container using the 'background' color from the theme
-                TransparentSystemBars()
                 Surface(
                     modifier = Modifier
                         .fillMaxSize()
@@ -51,7 +53,8 @@ class MainActivity : ComponentActivity() {
                         navController = screenNavController,
                         startDestination = "main"
                     ) {
-                        composable(route = "main",
+                        // 登录页
+                        composable(route = "login",
                             enterTransition = {
                                 fadeIn(initialAlpha = 1f)
                             },
@@ -64,8 +67,28 @@ class MainActivity : ComponentActivity() {
                             popExitTransition = {
                                 fadeOut(targetAlpha = 1f)
                             }) {
+                            SystemBars(color = Color.White,useDarkIcons = true)
+                            LoginScreen(screenNavController)
+                        }
+                        // 主页
+                        composable(route = "main",
+                            enterTransition = {
+                                fadeIn(initialAlpha = 1f)
+                            },
+                            exitTransition = {
+                                fadeOut(targetAlpha = 1f)
+                            },
+                            popEnterTransition = {
+                                fadeIn(initialAlpha = 1f)
+                            },
+                            popExitTransition = {
+                                fadeOut(targetAlpha = 1f)
+                            }
+                        ) {
+                            SystemBars()
                             MainScreen(bottomNavController, screenNavController)
                         }
+                        // 智能预定页
                         composable("smartBooking",
                             enterTransition = {
                                 fadeIn(initialAlpha = 1f)
@@ -90,20 +113,8 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
 
-    @Composable
-    fun TransparentSystemBars() {
-        val systemUiController = rememberSystemUiController()
-//        val useDarkIcons = !isSystemInDarkTheme()
-        val useDarkIcons = false
-        SideEffect {
-            systemUiController.setSystemBarsColor(
-                color = Primary,
-                darkIcons = useDarkIcons,
-                isNavigationBarContrastEnforced = false
-            )
-        }
+
     }
 }
 

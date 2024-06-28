@@ -41,6 +41,7 @@ import com.wsy.laundricompose.ui.theme.Primary
  *  date   : 2024/6/5
  *  desc   :
  */
+private const val TAG = "MainScreen"
 
 @Composable
 fun MainScreen(

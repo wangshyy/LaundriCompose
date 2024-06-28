@@ -43,6 +43,7 @@ import com.wsy.laundricompose.ui.theme.Primary
  *  desc   :
  */
 
+private const val TAG = "HomeScreen"
 @Composable
 fun HomeScreen(screenNavController: NavHostController) {
     val viewModel: HomeViewModel = viewModel()

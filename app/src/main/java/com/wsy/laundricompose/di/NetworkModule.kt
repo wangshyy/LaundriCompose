@@ -13,7 +13,7 @@ import javax.inject.Singleton
 /**
  *  author : wsy
  *  date   : 2024/6/26
- *  desc   : 依赖注入模块 ( hilt )
+ *  desc   : 网络相关依赖注入模块 ( hilt )
  */
 
 // 这个注解指示 Hilt 在 SingletonComponent 生命周期中进行依赖注入

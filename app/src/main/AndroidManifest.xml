@@ -14,14 +14,20 @@
         android:theme="@style/Theme.LaundriCompose"
         tools:targetApi="31">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.LaundriCompose">
+            android:theme="@style/Theme.SplashCompose">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.LaundriCompose">
         </activity>
     </application>
 

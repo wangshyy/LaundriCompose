@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--  欢迎页不需要状态栏，直接全屏  -->
+    <style name="Theme.SplashCompose" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
+        <item name="android:windowAnimationStyle">@style/Animate</item>
+    </style>
 
-    <style name="Theme.LaundriCompose" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.LaundriCompose" parent="android:Theme.Material.Light.NoActionBar" >
+        <item name="android:windowAnimationStyle">@style/Animate</item>
+    </style>
+
+    <style name="Animate" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/enter_anim</item>
+        <item name="android:activityOpenExitAnimation">@anim/exit_anim</item>
+        <item name="android:activityCloseEnterAnimation">@anim/enter_anim</item>
+        <item name="android:activityCloseExitAnimation">@anim/exit_anim</item>
+    </style>
 </resources>
