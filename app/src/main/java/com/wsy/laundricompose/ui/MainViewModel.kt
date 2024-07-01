@@ -15,5 +15,8 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val repository: MainRepository
 ) : ViewModel() {
+    // 用户侧滑次数
+    var userSideSwipeCount = 0
+
     val title = mutableStateOf("首页")
 }
