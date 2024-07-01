@@ -1,15 +1,19 @@
 package com.wsy.laundricompose.ui.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.BottomNavigation
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,7 +26,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -42,12 +45,15 @@ import com.wsy.laundricompose.ui.theme.Primary
  *  desc   :
  */
 private const val TAG = "MainScreen"
+private lateinit var mainViewModel: MainViewModel
 
 @Composable
 fun MainScreen(
     bottomNavController: NavHostController,
-    screenNavController: NavHostController
+    screenNavController: NavHostController,
+    viewModel: MainViewModel
 ) {
+    mainViewModel = viewModel
     val pages = listOf(
         Page(
             title = stringResource(id = R.string.home),
@@ -91,29 +97,28 @@ fun MainScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TopBar() {
-    val viewModel: MainViewModel = hiltViewModel()
     TopAppBar(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .background(color = Primary),
         title = {
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = viewModel.title.value,
+                text = mainViewModel.title.value,
                 color = Color.White,
                 fontSize = 18.sp,
                 textAlign = TextAlign.Center
             )
-        },
-        backgroundColor = Primary,
+        }
     )
 }
 
 @Composable
 private fun BottomNavigationBar(navController: NavHostController) {
-    val viewModel: MainViewModel = hiltViewModel()
     var selectedItem by remember {
         mutableStateOf(0)
     }
@@ -159,10 +164,16 @@ private fun BottomNavigationBar(navController: NavHostController) {
                     Icon(bottomNavItem.icon, contentDescription = bottomNavItem.label)
                 },
                 onClick = {
+                    // 重置侧滑计数
+                    mainViewModel.userSideSwipeCount = 0
+
                     if (selectedItem == index) return@BottomNavigationItem
                     selectedItem = index
-                    viewModel.title.value = items[index].label
-                    navController.navigate(bottomNavItem.route)
+                    mainViewModel.title.value = items[index].label
+                    navController.navigate(bottomNavItem.route) {
+                        // 清空回退栈
+                        navController.popBackStack()
+                    }
                 }
             )
         }

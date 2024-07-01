@@ -2,7 +2,9 @@ package com.wsy.laundricompose.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -13,7 +15,6 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,7 +22,7 @@ import androidx.core.view.WindowCompat
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.wsy.laundricompose.ext.toast
 import com.wsy.laundricompose.ui.component.SystemBars
 import com.wsy.laundricompose.ui.home.smartbooking.SmartBookingScreen
 import com.wsy.laundricompose.ui.login.LoginScreen
@@ -31,10 +32,23 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val viewModel: MainViewModel by viewModels()
 
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 侧滑回调
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (viewModel.userSideSwipeCount >= 1) {
+                    finish()
+                    return
+                }
+                viewModel.userSideSwipeCount++
+                toast(this@MainActivity, "再滑动一次退出程序")
+            }
+        })
 
 //        enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -67,7 +81,7 @@ class MainActivity : ComponentActivity() {
                             popExitTransition = {
                                 fadeOut(targetAlpha = 1f)
                             }) {
-                            SystemBars(color = Color.White,useDarkIcons = true)
+                            SystemBars(color = Color.White, useDarkIcons = true)
                             LoginScreen(screenNavController)
                         }
                         // 主页
@@ -86,7 +100,7 @@ class MainActivity : ComponentActivity() {
                             }
                         ) {
                             SystemBars()
-                            MainScreen(bottomNavController, screenNavController)
+                            MainScreen(bottomNavController, screenNavController, viewModel)
                         }
                         // 智能预定页
                         composable("smartBooking",
