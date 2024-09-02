@@ -13,11 +13,11 @@ val properties = Properties()
 properties.load(project.rootProject.file("local.properties").inputStream())
 
 android {
-    namespace = "com.wsy.laundricompose"
+    namespace = "com.laundri.wsy"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.wsy.laundricompose"
+        applicationId = "com.laundri.wsy"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
@@ -117,6 +117,8 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
+    implementation(libs.bundles.coil)
+    implementation(libs.wechat.sdk.android)
 }
 
 kapt {

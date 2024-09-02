@@ -2,6 +2,7 @@
 <resources>
     <!--  欢迎页不需要状态栏，直接全屏  -->
     <style name="Theme.SplashCompose" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
+        <item name="android:windowBackground">@drawable/img_splash</item>
         <item name="android:windowAnimationStyle">@style/Animate</item>
     </style>
 
