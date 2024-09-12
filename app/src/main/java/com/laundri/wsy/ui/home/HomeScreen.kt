@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.laundri.wsy.R
-import com.laundri.wsy.data.DeviceBean
+import com.laundri.wsy.bean.DeviceBean
 import com.laundri.wsy.ui.theme.ColorOrangeFF7906
 import com.laundri.wsy.ui.theme.ColorTextDefault
 import com.laundri.wsy.ui.theme.ColorTextFF343A40

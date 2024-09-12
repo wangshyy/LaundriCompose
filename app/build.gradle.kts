@@ -74,7 +74,7 @@ android {
         // 测试环境
         create("laundritest") {
             dimension = "default"
-            buildConfigField("String", "BASE_URL", "\"http://api.admin.landeli.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.landeli.com\"")
             manifestPlaceholders += mapOf(
                 "app_name" to "@string/app_name_test",
 //                "app_icon" to "@mipmap/icon_app"

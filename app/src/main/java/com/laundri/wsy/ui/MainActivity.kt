@@ -24,17 +24,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.tencent.mm.opensdk.constants.ConstantsAPI
-import com.tencent.mm.opensdk.modelbase.BaseReq
-import com.tencent.mm.opensdk.modelbase.BaseResp
-import com.tencent.mm.opensdk.modelmsg.SendAuth
-import com.tencent.mm.opensdk.openapi.IWXAPI
-import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler
-import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.laundri.wsy.BuildConfig
+import com.laundri.wsy.ext.logE
 import com.laundri.wsy.ext.toast
 import com.laundri.wsy.ui.component.SystemBars
 import com.laundri.wsy.ui.home.smartbooking.SmartBookingScreen
@@ -42,7 +37,14 @@ import com.laundri.wsy.ui.login.LoginScreen
 import com.laundri.wsy.ui.main.MainScreen
 import com.laundri.wsy.ui.theme.*
 import com.laundri.wsy.wechat.WechatHelper
+import com.tencent.mm.opensdk.constants.ConstantsAPI
+import com.tencent.mm.opensdk.modelbase.BaseReq
+import com.tencent.mm.opensdk.modelbase.BaseResp
+import com.tencent.mm.opensdk.modelmsg.SendAuth
+import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -106,7 +108,7 @@ class MainActivity : ComponentActivity(), IWXAPIEventHandler {
                                 fadeOut(targetAlpha = 1f)
                             }) {
                             SystemBars(color = Color.White, useDarkIcons = true)
-                            LoginScreen(screenNavController)
+                            LoginScreen(viewModel)
                         }
                         // 主页
                         composable(route = "main",
@@ -160,11 +162,12 @@ class MainActivity : ComponentActivity(), IWXAPIEventHandler {
         WechatHelper.instance.init(applicationContext)
         //建议动态监听微信启动广播进行注册到微信
         receiver = object : BroadcastReceiver() {
-                override fun onReceive(p0: Context?, p1: Intent?) {
-                    WechatHelper.instance.api.registerApp(BuildConfig.APPLICATION_ID)
-                }
+            override fun onReceive(p0: Context?, p1: Intent?) {
+                WechatHelper.instance.api.registerApp(BuildConfig.APPLICATION_ID)
             }
-        registerReceiver(receiver,
+        }
+        registerReceiver(
+            receiver,
             IntentFilter(ConstantsAPI.ACTION_REFRESH_WXAPP)
         )
         WechatHelper.instance.api.handleIntent(intent, this)
@@ -180,6 +183,9 @@ class MainActivity : ComponentActivity(), IWXAPIEventHandler {
             BaseResp.ErrCode.ERR_OK -> {
                 val code = (baseResp as SendAuth.Resp).code
                 toast(this, code)
+                lifecycleScope.launch {
+                    viewModel.updateWechatCode(code)
+                }
             }
             // 用户拒绝授权
             BaseResp.ErrCode.ERR_AUTH_DENIED -> {
@@ -195,6 +201,7 @@ class MainActivity : ComponentActivity(), IWXAPIEventHandler {
             }
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(receiver)

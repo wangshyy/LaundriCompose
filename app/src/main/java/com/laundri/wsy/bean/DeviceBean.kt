@@ -1,4 +1,4 @@
-package com.laundri.wsy.data
+package com.laundri.wsy.bean
 
 /**
  *  author : wsy

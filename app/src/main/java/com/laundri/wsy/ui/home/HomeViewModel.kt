@@ -1,7 +1,7 @@
 package com.laundri.wsy.ui.home
 
 import androidx.lifecycle.ViewModel
-import com.laundri.wsy.data.DeviceBean
+import com.laundri.wsy.bean.DeviceBean
 
 /**
  *  author : wsy
